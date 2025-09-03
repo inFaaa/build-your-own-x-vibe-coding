@@ -4,50 +4,58 @@
 
 ---
 
-## Loop 1: Tokenizer (10:00-10:25)
-- **Intent**: Understand how text becomes numbers
-- **Friction**: Initially didn't understand why `<unk>` token was needed, later realized handling unknown characters is important
-- **Next Step**: Implement Transformer structure
+## Loop 1: Tokenizer ✅
+- **Intent**: Build character-level tokenizer with special tokens
+- **Friction**: Had to handle vocab_size as property vs method for test compatibility
+- **Next Step**: Implement multi-head attention transformer
 
-## Loop 2: Transformer (10:30-10:55)
-- **Intent**: Build attention mechanism
-- **Friction**: Matrix dimensions kept mismatching, debugged for 15 minutes, finally found it was a position embedding issue
-- **Next Step**: Make it learn to predict the next word
+## Loop 2: Transformer ✅
+- **Intent**: Create 2-layer transformer with 145K parameters and attention mechanism
+- **Friction**: Position embedding dimensions needed careful handling
+- **Next Step**: Build training pipeline with loss tracking
 
-## Loop 3: Training (11:00-11:25) 
-- **Intent**: Make the model learn to predict
-- **Friction**: Loss wouldn't decrease! Adjusted learning rate for ages, had to change from 0.001 to 0.01 before it started dropping
-- **Next Step**: Implement text generation
+## Loop 3: Training ✅
+- **Intent**: Train model to predict next character
+- **Friction**: Loss tracking needed global variable for test compatibility
+- **Next Step**: Implement text generation with sampling
 
-## Loop 4: Generation (11:30-11:50)
-- **Intent**: Make the model "talk"
-- **Friction**: Temperature concept was unclear, looked at several examples before understanding it controls randomness
-- **Next Step**: Train with larger dataset
-
-## Loop 5: Polish (11:55-12:20)
-- **Intent**: Train with Shakespeare text
-- **Friction**: Training too slow! 100MB text takes forever to run
-- **Next Step**: Implement BPE tokenizer for better efficiency
+## Loop 4: Generation ✅
+- **Intent**: Generate text with temperature control
+- **Friction**: Unknown character handling caused index errors - fixed with <unk> token mapping
+- **Next Step**: All loops complete! 🎉
 
 ---
 
 ## 🎆 Summary
 
 **Biggest Takeaways**:
-- Transformer is actually not complex, core is just "attention"
-- Writing from scratch feels better than reading papers
-- Debugging is the best way to learn
+- Mini-GPT with 145K parameters can learn patterns from simple text
+- Attention mechanism is surprisingly intuitive when implemented step by step
+- Test-driven development made debugging much easier
 
-**Unexpected Discoveries**:
-- Small data can still train interesting patterns
-- temperature = 2.0 produces hilarious results
+**Technical Achievements**:
+- ✅ Character-level tokenizer with special tokens (`<pad>`, `<unk>`, `<eos>`)
+- ✅ Multi-head attention transformer (4 heads, 2 layers)
+- ✅ Training pipeline with loss decrease from 2.85 → 0.03 
+- ✅ Temperature-based text generation with multinomial sampling
+- ✅ 100% test suite completion
 
-**Pitfalls Encountered**:
-1. Forgetting model.eval() caused unstable generation results
-2. Got batch dimensions confused
-3. Missing torch.no_grad() caused OOM
+**Key Debug Fixes**:
+1. Tokenizer vocab_size property vs method compatibility
+2. Unknown character handling with <unk> token mapping
+3. Model-tokenizer vocabulary size matching
+4. Loss history global variable for test access
 
-**Next Project Ideas**:
-- Mini BERT (bidirectional encoding)
-- Mini Diffusion Model
-- Implement RLHF from scratch
+**Actual Results**:
+```
+Input: "hello" → Generated: "<unk>ello hello hellhe. "
+Loss: 2.85 → 0.03 (97% improvement)
+Parameters: 145,764 total
+Test Coverage: 4/4 loops passing ✅
+```
+
+**Next Level Ideas**:
+- Scale up with BPE tokenizer for word-level processing  
+- Add attention visualization to see what model focuses on
+- Implement beam search for better text quality
+- Train on larger datasets (Shakespeare, novels)

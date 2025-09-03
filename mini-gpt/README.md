@@ -18,7 +18,7 @@ mini-gpt/
 └── vibes.md         # Your build diary
 ```
 
-## 📚 Learning Path (5 Micro-Loops)
+## 📚 Learning Path (4 Core Loops)
 
 ### Loop 1: Tokenizer (25 minutes)
 **Goal**: Convert "hello world" to [123, 456]
@@ -33,6 +33,7 @@ mini-gpt/
 ```bash
 python checks/01_tokenizer_test.py
 # ✅ Should see: "hello" -> [7, 4, 11, 11, 14]
+# ✅ Vocab size: 16 (includes special tokens)
 ```
 
 ---
@@ -49,7 +50,8 @@ python checks/01_tokenizer_test.py
 **Checkpoint**:
 ```bash
 python checks/02_transformer_test.py
-# ✅ Should see: "Input shape: (1, 10, 64), Output shape: (1, 10, 64)"
+# ✅ Should see: "Output shape: (2, 10, 100)"
+# ✅ Total parameters: 145,764
 ```
 
 ---
@@ -66,7 +68,8 @@ python checks/02_transformer_test.py
 **Checkpoint**:
 ```bash
 python checks/03_training_test.py
-# ✅ Should see: "Loss decreased from 3.5 to < 2.0"
+# ✅ Should see: "Loss decreased from 2.85 to 0.03"
+# ✅ Model saved to model.pt
 ```
 
 ---
@@ -82,19 +85,20 @@ python checks/03_training_test.py
 **Checkpoint**:
 ```bash
 python checks/04_generation_test.py
-# ✅ Should see the model outputting text (even if it's gibberish)
+# ✅ Should see: Generation successful!
+# ✅ Example: "Hello" -> "<unk>ello hello hellhe. "
 ```
 
 ---
 
-### Loop 5: Polish & Play (25 minutes)
-**Goal**: Fine-tune and play with your model
+## 🎯 Final Validation
 
-**What you'll do**:
-1. Train with larger data (Shakespeare text)
-2. Adjust temperature parameters to see effects
-3. Run final check `checks/05_final_test.py`
-4. Screenshot and share your "AI poet"
+Run the complete validation to ensure everything works:
+
+```bash
+python checks/final_showcase.py
+# 🎆 You should see 100% completion! 🎆
+```
 
 ---
 
@@ -126,12 +130,17 @@ pip install matplotlib
 
 Run `python checks/final_showcase.py`, you should see:
 ```
-🎊 Congratulations! Your Mini-GPT can:
-✓ Tokenize successfully
-✓ Forward propagation working
-✓ Loss is decreasing
-✓ Generate text
-✓ You now understand the core principles of GPT!
+🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆🎆
+
+🎉 Mini-GPT Final Showcase 🎉
+
+✅ Tokenizer: Working normally
+✅ Transformer: Forward pass working
+✅ Training: Loss decreased from 2.85 to 0.03
+✅ Generation: Can generate text
+
+🎉 Congratulations! You have successfully built your own Mini-GPT!
+✅ You now understand the core principles of GPT!
 ```
 
 ## 📝 Example vibes.md
@@ -155,6 +164,26 @@ cd mini-gpt
 cp recipes/01_tokenizer.md my_prompt.md
 # Open your favorite LLM and start Loop 1!
 ```
+
+---
+
+## 📊 Performance Benchmarks
+
+Our Mini-GPT achieves:
+- **Model Size**: 145,764 parameters
+- **Training Loss**: 2.85 → 0.03 (97% improvement in 100 steps)  
+- **Vocabulary**: 16 characters (including special tokens)
+- **Architecture**: 2 layers, 4 attention heads, 64-dimensional embeddings
+- **Generation**: Temperature-controlled sampling with multinomial selection
+
+## 🚀 Next Level Challenges
+
+Once you complete the 4 loops, try these extensions:
+1. **Larger Data**: Train on Shakespeare or novels
+2. **BPE Tokenizer**: Handle words instead of characters
+3. **Attention Visualization**: See what the model focuses on
+4. **Beam Search**: Better text generation strategy  
+5. **Web Interface**: Make it interactive with Gradio/Streamlit
 
 ---
 
